@@ -1,0 +1,25 @@
+{
+  "name": "ocr-development",
+  "version": "1.0.0",
+  "description": "OCR in JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "keywords": [
+    "JavaScript",
+    "OCR"
+  ],
+  "author": "Acxel Morales",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "multer": "^1.4.2",
+    "pdfkit": "^0.11.0",
+    "tesseract.js": "^2.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
