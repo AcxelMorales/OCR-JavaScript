@@ -7,16 +7,43 @@ const multer = require('multer');
 const {
     createWorker
 } = require('tesseract.js');
-const PDFDocument = require('pdfkit');
+// const PDFDocument = require('pdfkit');
 
 // Initialize
 const app = express();
-const doc = new PDFDocument();
+// const doc = new PDFDocument();
 const worker = createWorker({
     logger: (m) => console.log(m)
 });
 
-doc.pipe(fs.createWriteStream('tesseract.js-ocr-result.pdf'));
+const rectangles = [
+    {
+        left: 10,
+        top: 40,
+        width: 300,
+        height: 100
+    },
+    {
+        left: 197,
+        top: 40,
+        width: 240,
+        height: 65
+    },
+    // {
+    //     left: 300,
+    //     top: 120,
+    //     width: 150,
+    //     height: 40
+    // },
+    {
+        left: 97,
+        top: 130,
+        width: 412,
+        height: 60
+    },
+];
+
+// doc.pipe(fs.createWriteStream('tesseract.js-ocr-result.pdf'));
 
 // Storage
 const storage = multer.diskStorage({
@@ -42,31 +69,41 @@ app.get('/', (req, res) => {
 
 app.post('/upload', (req, res) => {
     upload(req, res, err => {
+        if (err) return console.log('This is your error', err);
+
         fs.readFile(`./uploads/${req.file.originalname}`, async (err, data) => {
             if (err) return console.log('This is your error', err);
 
             await worker.load();
-            await worker.loadLanguage('eng');
-            await worker.initialize('eng');
-            const {
-                data: {
-                    text
-                }
-            } = await worker.recognize(data);
+            await worker.loadLanguage('spa');
+            await worker.initialize('spa');
 
-            doc.image(data, {
-                fit: [250, 300],
-                align: 'center',
-                valign: 'center'
-            });
-            doc
-                .addPage()
-                .fontSize(25)
-                .text(text);
-            doc.end();
+            const values = [];
+            for (let i = 0; i < rectangles.length; i++) {
+                const {
+                    data: {
+                        text
+                    }
+                } = await worker.recognize(data, { rectangle: rectangles[i] });
 
-            // res.send(text);
-            res.redirect('/download');
+                values.push(text.replace('NICIMENTO', 'NACIMIENTO'));
+                console.log(text);
+            }
+
+            // doc.image(data, {
+            //     fit: [250, 300],
+            //     align: 'center',
+            //     valign: 'center'
+            // });
+            // doc
+            //     .addPage()
+            //     .fontSize(25)
+            //     .text(text);
+            // doc.end();
+
+            res.json({ data: values });
+
+            // res.redirect('/download');
             await worker.terminate();
         });
     });

@@ -1,16 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>OCR JS</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body {
+            background: rgba(226, 226, 226, 1);
+            background: -moz-linear-gradient(left, rgba(226, 226, 226, 1) 0%, rgba(219, 219, 219, 1) 20%, rgba(209, 209, 209, 1) 51%, rgba(254, 254, 254, 1) 100%);
+            background: -webkit-gradient(left top, right top, color-stop(0%, rgba(226, 226, 226, 1)), color-stop(20%, rgba(219, 219, 219, 1)), color-stop(51%, rgba(209, 209, 209, 1)), color-stop(100%, rgba(254, 254, 254, 1)));
+            background: -webkit-linear-gradient(left, rgba(226, 226, 226, 1) 0%, rgba(219, 219, 219, 1) 20%, rgba(209, 209, 209, 1) 51%, rgba(254, 254, 254, 1) 100%);
+            background: -o-linear-gradient(left, rgba(226, 226, 226, 1) 0%, rgba(219, 219, 219, 1) 20%, rgba(209, 209, 209, 1) 51%, rgba(254, 254, 254, 1) 100%);
+            background: -ms-linear-gradient(left, rgba(226, 226, 226, 1) 0%, rgba(219, 219, 219, 1) 20%, rgba(209, 209, 209, 1) 51%, rgba(254, 254, 254, 1) 100%);
+            background: linear-gradient(to right, rgba(226, 226, 226, 1) 0%, rgba(219, 219, 219, 1) 20%, rgba(209, 209, 209, 1) 51%, rgba(254, 254, 254, 1) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e2e2e2', endColorstr='#fefefe', GradientType=1);
+        }
+
+        .container {
+            max-width: 700px;
+            margin-top: 5em;
+        }
+
+        .t-c {
+            text-align: center;
+        }
+
+        .file-path {
+            color: black !important;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>IMG to PDF</h1>
-    <form action="/upload" method="POST" enctype="multipart/form-data">
-        <input type="file" name="avatar">
-        <button type="submit">Convert</button>
-    </form>
+    <div class="container">
+        <h1 class="t-c">OCR in JavaScript</h1>
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <div class="file-field input-field">
+                <div class="btn">
+                    <span>File</span>
+                    <input type="file" multiple name="avatar">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text" placeholder="Upload one or more files" name="avatar">
+                </div>
+            </div>
+            <button class="btn waves-effect waves-light" type="submit">Convert
+                <i class="material-icons right">send</i>
+            </button>
+        </form>
+    </div>
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
+
 </html>
