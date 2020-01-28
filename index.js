@@ -33,10 +33,10 @@ const rectangles = [
         height: 65
     },
     // {
-    //     left: 300,
-    //     top: 120,
-    //     width: 150,
-    //     height: 40
+    //     left: 197,
+    //     top: 73,
+    //     width: 200,
+    //     height: 60
     // },
     {
         left: 97,

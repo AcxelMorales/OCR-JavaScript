@@ -34,9 +34,9 @@
 
 <body>
     <div class="container">
-        <!-- <div class="progress">
+        <div class="progress" id="progress">
             <div class="indeterminate"></div>
-        </div> -->
+        </div>
         <h1 class="t-c">OCR in JavaScript</h1>
         <form action="/upload" method="POST" enctype="multipart/form-data">
             <div class="file-field input-field">
@@ -48,7 +48,7 @@
                     <input class="file-path validate" type="text" placeholder="Upload one or more files" name="avatar">
                 </div>
             </div>
-            <button class="btn waves-effect waves-light" type="submit">Convert
+            <button id="submit" class="btn waves-effect waves-light" type="submit">Convert
                 <i class="material-icons right">send</i>
             </button>
         </form>
@@ -56,6 +56,15 @@
 
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('progress').style.display = 'none';
+        });
+
+        document.getElementById('submit').addEventListener('click', () => {
+            document.getElementById('progress').style.display = 'block';
+        });
+    </script>
 </body>
 
 </html>
