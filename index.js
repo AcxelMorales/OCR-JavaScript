@@ -13,7 +13,10 @@ const {
 const app = express();
 // const doc = new PDFDocument();
 const worker = createWorker({
-    logger: (m) => console.log(m)
+    logger: (m) => {
+        // console.log(Math.floor(m.progress * 100));
+        console.log(m);
+    }
 });
 
 const rectangles = [
@@ -69,6 +72,20 @@ app.get('/', (req, res) => {
 
 app.post('/upload', (req, res) => {
     upload(req, res, err => {
+        if (!req.file) {
+            return res.json({
+                ok: false,
+                message: 'Not file'
+            });
+        }
+
+        if (!req.file.mimetype.includes('image')) {
+            return res.json({
+                ok: false,
+                message: 'The file is not a image'
+            });
+        }
+
         if (err) return console.log('This is your error', err);
 
         fs.readFile(`./uploads/${req.file.originalname}`, async (err, data) => {
@@ -101,10 +118,13 @@ app.post('/upload', (req, res) => {
             //     .text(text);
             // doc.end();
 
-            res.json({ data: values });
-
             // res.redirect('/download');
             await worker.terminate();
+
+            return res.json({
+                ok: true,
+                data: values
+            });
         });
     });
 });
@@ -116,6 +136,7 @@ app.get('/download', (req, res) => {
 
 // Listener
 const PORT = 3000 || process.env.PORT;
+
 app.listen(PORT, () => {
     console.log(`Server on port ${PORT}`);
 });
