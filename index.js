@@ -9,12 +9,12 @@ const app = express();
 // Configs
 app.set('view engine', 'ejs');
 
+const PORT = 3000 || process.env.PORT;
+
 // Routes
 app.use(require('./routes/tesseract.routes'));
 
 // Listener
-const PORT = 3000 || process.env.PORT;
-
 app.listen(PORT, () => {
     console.log(`Server on port ${PORT}`);
 });

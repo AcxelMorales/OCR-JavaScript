@@ -1,56 +1,14 @@
 'use strict';
 
 const fs = require('fs');
-const {
-    createWorker
-} = require('tesseract.js');
-const worker = createWorker({
-    logger: (m) => {
-        // console.log(Math.floor(m.progress * 100));
-        console.log(m);
-    }
-});
+const { createWorker } = require('tesseract.js');
 
 const upload = require('../storage/storage');
+const rectangles = require('../utils/rectangles.utils');
 
-const rectangles = [
-    {
-        left: 10,
-        top: 40,
-        width: 300,
-        height: 100
-    },
-    {
-        left: 197,
-        top: 40,
-        width: 240,
-        height: 65
-    },
-    // {
-    //     left: 197,
-    //     top: 73,
-    //     width: 200,
-    //     height: 60
-    // },
-    {
-        left: 97,
-        top: 130,
-        width: 412,
-        height: 60
-    },
-    {
-        left: -3,
-        top: 180,
-        width: 582,
-        height: 50
-    },
-    {
-        left: -3,
-        top: 200,
-        width: 500,
-        height: 60
-    }
-];
+const worker = createWorker({
+    logger: (m) => console.log(m)
+});
 
 exports.getView = (req, res) => {
     res.render('index');
